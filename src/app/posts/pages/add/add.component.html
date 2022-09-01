@@ -1,1 +1,18 @@
-<p>add works!</p>
+<form [formGroup]="newComment" (submit)="addComment()">
+  <div class="example-container">
+    <!-- Name -->
+    <mat-form-field appearance="fill">
+      <mat-label>Name</mat-label>
+      <input formControlName="name" matInput />
+    </mat-form-field>
+    <!-- Comment -->
+    <mat-form-field appearance="fill">
+      <mat-label>Comment</mat-label>
+      <textarea formControlName="comments" matInput></textarea>
+    </mat-form-field>
+  </div>
+  <button [disabled]="newComment.invalid" mat-raised-button color="primary">
+    Add
+  </button>
+</form>
+<!-- [disabled]="newComment.invalid || newComment.pending" -->

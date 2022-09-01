@@ -30,7 +30,12 @@
       </button>
     </mat-form-field>
   </div>
-  <button mat-raised-button color="primary" [disabled]="loginForm.invalid">
+  <button
+    routerLink="/posts/list"
+    mat-raised-button
+    color="primary"
+    [disabled]="loginForm.invalid"
+  >
     Ingresar
   </button>
   <button routerLink="/auth/register" mat-raised-button color="warn">

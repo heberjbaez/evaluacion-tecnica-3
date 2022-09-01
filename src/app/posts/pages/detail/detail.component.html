@@ -17,4 +17,12 @@
   <div *ngIf="!post; else divPostDetail">
     <h1>No existe el post</h1>
   </div>
+
+  <button
+    [routerLink]="['/posts/post/add', post.id]"
+    mat-raised-button
+    color="primary"
+  >
+    New Comment
+  </button>
 </div>
