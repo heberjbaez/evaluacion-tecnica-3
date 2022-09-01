@@ -8,7 +8,7 @@ import { Comments } from '../interfaces/comments.interface';
   providedIn: 'root',
 })
 export class PostsService {
-  private apiUrl: string = 'https://postsmockapi.herokuapp.com';
+  private apiUrl: string = 'https://heber-baez-endpoint.herokuapp.com';
 
   constructor(private http: HttpClient) {}
 

@@ -1,1 +1,20 @@
-<p>detail works!</p>
+<div class="container">
+  <ng-template #divPostDetail>
+    <div class="heading-container">
+      <h5>Detail post: {{ post.id }}</h5>
+      <div *ngIf="lastComment !== ''">Last comment: {{ lastComment }}</div>
+    </div>
+    <h2>{{ post.title | titlecase }}</h2>
+    <p>
+      {{ post.body }}
+    </p>
+    <app-comments
+      (onDate)="viewLastComment($event)"
+      [post]="post.id"
+    ></app-comments>
+  </ng-template>
+
+  <div *ngIf="!post; else divPostDetail">
+    <h1>No existe el post</h1>
+  </div>
+</div>

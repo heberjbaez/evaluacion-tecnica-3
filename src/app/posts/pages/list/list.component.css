@@ -5,3 +5,12 @@
 table {
     width: 100%;
 }
+
+a {
+    color: tomato;
+    text-decoration: none;
+}
+
+a:hover {
+    color: whitesmoke;
+}

@@ -1,1 +1,28 @@
-<p>comments works!</p>
+<div class="card">
+  <h5 class="card-header">Comments</h5>
+
+  <ul *ngFor="let comment of comments">
+    <li>
+      <strong> Nombre: </strong>
+      <!-- <label>{{ comment.name | upperLower: upperLower }}</label> -->
+    </li>
+    <li>
+      <p><strong> Comentario: </strong> {{ comment.body }}</p>
+    </li>
+  </ul>
+  <div class="buttons-container">
+    <button type="button" class="btn btn-secondary" (click)="emmitDate()">
+      Emmit
+    </button>
+    <button
+      [ngClass]="{
+        ' btn-primary': upperLower === true,
+        ' btn-danger': !upperLower
+      }"
+      (click)="change()"
+      class="btn"
+    >
+      Change
+    </button>
+  </div>
+</div>

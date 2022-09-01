@@ -7,9 +7,11 @@ import { MaterialModule } from '../material/material.module';
 import { ListComponent } from './pages/list/list.component';
 import { DetailComponent } from './pages/detail/detail.component';
 import { HomeComponent } from './pages/home/home.component';
+import { AddComponent } from './pages/add/add.component';
+import { EditComponent } from './pages/edit/edit.component';
 
 @NgModule({
-  declarations: [CommentsComponent, ListComponent, DetailComponent, HomeComponent],
+  declarations: [CommentsComponent, ListComponent, DetailComponent, HomeComponent, AddComponent, EditComponent],
   imports: [CommonModule, PostsRoutingModule, MaterialModule],
 })
 export class PostsModule {}
