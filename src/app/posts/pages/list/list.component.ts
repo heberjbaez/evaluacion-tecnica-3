@@ -11,9 +11,7 @@ import { Posts } from '../../interfaces/posts.interface';
 })
 export class ListComponent implements AfterViewInit, OnInit {
   displayedColumns: string[] = ['id', 'title', 'actions'];
-  list: Posts[] = [];
-  listPaginator = new MatTableDataSource<Posts>(this.list);
-
+  listPaginator = new MatTableDataSource<Posts>([]);
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
   constructor(private postsService: PostsService) {}
@@ -29,7 +27,7 @@ export class ListComponent implements AfterViewInit, OnInit {
   loadPosts() {
     this.postsService.getPosts().subscribe({
       next: (resultList) => {
-        this.list = resultList;
+        this.listPaginator.data = resultList;
       },
       error: (err) => {
         console.log(err);

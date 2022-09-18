@@ -1,12 +1,34 @@
-<mat-toolbar>
-  <button
-    mat-icon-button
-    class="example-icon"
-    aria-label="Example icon-button with menu icon"
-  >
-    <mat-icon>menu</mat-icon>
-  </button>
-  <span class="spacer"></span>
-  <span>Usuario</span>
-  <button mat-button>Logout</button>
-</mat-toolbar>
+<mat-sidenav-container fullscreen>
+  <mat-sidenav #sidenav mode="push">
+    <mat-toolbar color="primary">
+      <span>Menú</span>
+    </mat-toolbar>
+    <mat-nav-list>
+      <a (click)="sidenav.toggle()" mat-list-item routerLink="posts/list"
+        >Posts</a
+      >
+      <a (click)="sidenav.toggle()" mat-list-item routerLink="auth/login"
+        >Login</a
+      >
+      <a (click)="sidenav.toggle()" mat-list-item routerLink="auth/register"
+        >Register</a
+      >
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-toolbar>
+    <button
+      mat-icon-button
+      (click)="sidenav.toggle()"
+      aria-label="Example icon-button with menu icon"
+    >
+      <mat-icon>menu</mat-icon>
+    </button>
+    <div class="user-container">
+      <span>Usuario</span>
+      <button mat-button>Logout</button>
+    </div>
+  </mat-toolbar>
+  <div class="container">
+    <router-outlet></router-outlet>
+  </div>
+</mat-sidenav-container>
