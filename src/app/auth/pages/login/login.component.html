@@ -1,4 +1,4 @@
-<form [formGroup]="loginForm" (ngSubmit)="logIn()">
+<form [formGroup]="loginForm">
   <div class="example-container">
     <!-- Email -->
     <mat-form-field appearance="fill">
@@ -8,6 +8,7 @@
         placeholder="pat@example.com"
         formControlName="email"
         required
+        #email
       />
       <!-- <mat-error *ngIf="email.invalid">{{ getErrorMessage() }}</mat-error> -->
     </mat-form-field>
@@ -22,6 +23,7 @@
     mat-raised-button
     color="primary"
     [disabled]="loginForm.invalid"
+    (click)="logIn(email.value)"
   >
     Ingresar
   </button>

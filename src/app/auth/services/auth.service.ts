@@ -22,8 +22,8 @@ export class AuthService {
     return this.http.get<Auth[]>(url);
   }
 
-  loginByUsername(form: Auth): Observable<Response> {
-    const url = `${this.apiUrl}/users`;
-    return this.http.post<Response>(url, form);
+  getUser(email: string): Observable<Auth[]> {
+    const url = `${this.apiUrl}/users?q=${email}`;
+    return this.http.get<Auth[]>(url);
   }
 }

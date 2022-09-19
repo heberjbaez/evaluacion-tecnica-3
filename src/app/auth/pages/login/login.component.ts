@@ -34,5 +34,12 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  logIn() {}
+  logIn(email: string) {
+    this.authService.getUser(email).subscribe({
+      next: (res) => {
+        console.log(res);
+        localStorage.setItem('user', JSON.stringify(res));
+      },
+    });
+  }
 }
