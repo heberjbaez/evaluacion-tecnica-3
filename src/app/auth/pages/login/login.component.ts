@@ -23,13 +23,13 @@ export class LoginComponent implements OnInit {
       [Validators.required, Validators.pattern(emailPattern)],
       [this.emailValidator],
     ],
-    // username: ['', [Validators.required]],
   });
 
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
-    private emailValidator: EmailValidatorService
+    private emailValidator: EmailValidatorService,
+    private route: Router
   ) {}
 
   ngOnInit(): void {}
@@ -37,7 +37,8 @@ export class LoginComponent implements OnInit {
   logIn(email: string) {
     this.authService.getUser(email).subscribe({
       next: (res) => {
-        localStorage.setItem('user', JSON.stringify(res));
+        sessionStorage.setItem('user', JSON.stringify(res));
+        this.route.navigate(['/', 'posts', '/list']);
       },
     });
   }

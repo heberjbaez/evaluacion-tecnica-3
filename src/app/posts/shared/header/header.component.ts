@@ -11,18 +11,18 @@ export class HeaderComponent implements OnInit {
   constructor(private router: Router) {}
 
   ngOnInit(): void {
-    if (localStorage.getItem('user')) {
+    if (sessionStorage.getItem('user')) {
       this.loadUser();
     }
   }
 
   loadUser() {
-    const user = JSON.parse(localStorage.getItem('user')!);
+    const user = JSON.parse(sessionStorage.getItem('user')!);
     this.userName = user[0].name;
   }
 
   logOut() {
-    localStorage.removeItem('user');
+    sessionStorage.removeItem('user');
     this.router.navigate(['/', 'auth', '/login']);
   }
 }

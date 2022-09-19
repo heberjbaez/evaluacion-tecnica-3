@@ -14,12 +14,13 @@
       mat-icon-button
       (click)="sidenav.toggle()"
       aria-label="Example icon-button with menu icon"
+      *ngIf="userName"
     >
       <mat-icon>menu</mat-icon>
     </button>
     <div class="user-container">
       <span>{{ userName }}</span>
-      <button mat-button (click)="logOut()">Logout</button>
+      <button mat-button *ngIf="userName" (click)="logOut()">Logout</button>
     </div>
   </mat-toolbar>
   <div class="container">

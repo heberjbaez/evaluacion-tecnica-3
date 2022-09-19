@@ -12,8 +12,6 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class AuthGuard implements CanActivate {
-  private cookie = localStorage.getItem('user');
-
   constructor(private router: Router) {}
 
   canActivate(): Observable<boolean> | boolean {
@@ -21,7 +19,7 @@ export class AuthGuard implements CanActivate {
   }
 
   private checkCookie(): boolean {
-    if (this.cookie !== null) {
+    if (sessionStorage.getItem('user')) {
       return true;
     } else {
       this.router.navigate(['/', 'auth', '/login']);
