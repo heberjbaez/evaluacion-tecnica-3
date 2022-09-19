@@ -10,6 +10,7 @@ import { EditComponent } from './pages/edit/edit.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from './shared/shared.module';
 import { UpperLowerPipe } from './pipes/upper-lower.pipe';
+import { NotFoundComponent } from './pages/not-found/not-found.component';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import { UpperLowerPipe } from './pipes/upper-lower.pipe';
     AddComponent,
     EditComponent,
     UpperLowerPipe,
+    NotFoundComponent,
   ],
   imports: [
     CommonModule,
