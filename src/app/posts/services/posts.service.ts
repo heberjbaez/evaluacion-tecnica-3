@@ -26,4 +26,9 @@ export class PostsService {
     const url = `${this.apiUrl}/comments?postId=${postId}`;
     return this.http.get<Comments[]>(url);
   }
+
+  addPostComments(postId: number, comment: Comments): Observable<Comments[]> {
+    const url = `${this.apiUrl}/comments?postId=${postId}`;
+    return this.http.post<Comments[]>(url, comment);
+  }
 }

@@ -5,10 +5,15 @@
       <mat-label>Name</mat-label>
       <input formControlName="name" matInput />
     </mat-form-field>
-    <!-- Comment -->
+    <!-- Email -->
+    <mat-form-field appearance="fill">
+      <mat-label>Email</mat-label>
+      <input formControlName="email" matInput />
+    </mat-form-field>
+    <!-- body -->
     <mat-form-field appearance="fill">
       <mat-label>Comment</mat-label>
-      <textarea formControlName="comments" matInput></textarea>
+      <textarea formControlName="body" matInput></textarea>
     </mat-form-field>
   </div>
   <button [disabled]="newComment.invalid" mat-raised-button color="primary">
@@ -16,3 +21,5 @@
   </button>
 </form>
 <!-- [disabled]="newComment.invalid || newComment.pending" -->
+
+<pre>{{ newComment.value | json }}</pre>

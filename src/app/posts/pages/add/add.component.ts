@@ -1,7 +1,13 @@
-import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Component, Input, OnInit } from '@angular/core';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 import { Router } from '@angular/router';
 import { PostsService } from '../../services/posts.service';
+import { emailPattern } from '../../shared/validators/validations';
 
 @Component({
   selector: 'app-add',
@@ -9,22 +15,29 @@ import { PostsService } from '../../services/posts.service';
   styleUrls: ['./add.component.css'],
 })
 export class AddComponent implements OnInit {
-  hide = true;
-  newComment: FormGroup = new FormGroup({
-    name: new FormControl('', [Validators.required]),
-    comments: new FormControl('', [
-      Validators.required,
-      Validators.maxLength(200),
-    ]),
+  @Input() post: number = 0;
+
+  newComment: FormGroup = this.fb.group({
+    name: ['', [Validators.required]],
+    email: ['', [Validators.required, Validators.pattern(emailPattern)]],
+    body: ['', [Validators.required, Validators.maxLength(200)]],
   });
 
-  constructor(private postService: PostsService, private router: Router) {}
+  constructor(
+    private postService: PostsService,
+    private router: Router,
+    private fb: FormBuilder
+  ) {}
 
   ngOnInit(): void {}
 
   addComment(): void {
-    const comment = this.newComment.value;
-
-    console.log(comment);
+    this.postService
+      .addPostComments(this.post, this.newComment.value)
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+        },
+      });
   }
 }
