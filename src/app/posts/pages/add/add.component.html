@@ -1,5 +1,10 @@
 <form [formGroup]="newComment" (submit)="addComment()">
   <div class="example-container">
+    <!-- PostId -->
+    <mat-form-field appearance="fill">
+      <mat-label>postid</mat-label>
+      <input formControlName="postId" matInput />
+    </mat-form-field>
     <!-- Name -->
     <mat-form-field appearance="fill">
       <mat-label>Name</mat-label>

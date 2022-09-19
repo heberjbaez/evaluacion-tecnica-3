@@ -18,6 +18,7 @@ export class AddComponent implements OnInit {
   @Input() post: number = 0;
 
   newComment: FormGroup = this.fb.group({
+    postId: [],
     name: ['', [Validators.required]],
     email: ['', [Validators.required, Validators.pattern(emailPattern)]],
     body: ['', [Validators.required, Validators.maxLength(200)]],
@@ -37,6 +38,8 @@ export class AddComponent implements OnInit {
       .subscribe({
         next: (res) => {
           console.log(res);
+          this.newComment.reset();
+          this.router.navigate(['/', 'posts', '/list']);
         },
       });
   }
