@@ -1,37 +1,31 @@
-<form [formGroup]="loginForm">
-  <div class="example-container">
-    <!-- Email -->
-    <mat-form-field appearance="fill">
-      <mat-label>Enter your email</mat-label>
-      <input
-        matInput
-        placeholder="pat@example.com"
-        formControlName="email"
-        required
-        #email
-      />
-      <!-- <mat-error *ngIf="email.invalid">{{ getErrorMessage() }}</mat-error> -->
-    </mat-form-field>
-    <!-- Password -->
-    <!-- <mat-form-field appearance="fill">
-      <mat-label>Enter your username</mat-label>
-      <input matInput formControlName="username" />
-    </mat-form-field> -->
-  </div>
-  <button
-    routerLink="/posts/list"
-    mat-raised-button
-    color="primary"
-    [disabled]="loginForm.invalid"
-    (click)="logIn(email.value)"
-  >
-    Ingresar
-  </button>
-  <button routerLink="/auth/register" mat-raised-button color="warn">
-    Registrarse
-  </button>
-</form>
+<div class="form-container">
+  <mat-card class="form-card">
+    <form [formGroup]="loginForm">
+      <mat-form-field appearance="fill" class="email-input">
+        <mat-label>Enter your email</mat-label>
+        <input
+          matInput
+          placeholder="pat@example.com"
+          formControlName="email"
+          required
+          #email
+        />
+      </mat-form-field>
 
-<pre>
-    {{ loginForm.value | json }}
-</pre>
+      <div class="buttons-container">
+        <button
+          routerLink="/posts/list"
+          mat-raised-button
+          color="primary"
+          [disabled]="loginForm.invalid"
+          (click)="logIn(email.value)"
+        >
+          Ingresar
+        </button>
+        <button routerLink="/auth/register" mat-raised-button color="warn">
+          Registrarse
+        </button>
+      </div>
+    </form>
+  </mat-card>
+</div>

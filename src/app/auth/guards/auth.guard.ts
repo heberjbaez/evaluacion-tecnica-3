@@ -12,18 +12,11 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class AuthGuard implements CanActivate {
-  private cookie: string | null = localStorage.getItem('user');
+  private cookie = localStorage.getItem('user');
 
   constructor(private router: Router) {}
 
-  canActivate(
-    route: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot
-  ):
-    | Observable<boolean | UrlTree>
-    | Promise<boolean | UrlTree>
-    | boolean
-    | UrlTree {
+  canActivate(): Observable<boolean> | boolean {
     return this.checkCookie();
   }
 

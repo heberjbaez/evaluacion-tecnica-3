@@ -37,10 +37,4 @@ export class RegisterComponent implements OnInit {
     const newUser = this.registerForm.value;
     console.log(newUser);
   }
-
-  // passwordMatchValidator(formCurrent: AbstractControl | FormGroup): any {
-  //   const valuePassword = formCurrent.get('password')?.value;
-  //   const valuePasswordConfirm = formCurrent.get('passwordConfirm')?.value;
-  //   return valuePassword === valuePasswordConfirm ? null : { match: true };
-  // }
 }

@@ -1,47 +1,50 @@
-<form [formGroup]="registerForm" (submit)="signUp()">
-  <div class="example-container">
-    <!-- Name -->
-    <mat-form-field appearance="fill">
-      <mat-label>Name</mat-label>
-      <input formControlName="name" matInput />
-    </mat-form-field>
-    <!-- UserName -->
-    <mat-form-field appearance="fill">
-      <mat-label>UserName</mat-label>
-      <input formControlName="username" matInput />
-    </mat-form-field>
-    <!-- Email -->
-    <mat-form-field appearance="fill">
-      <mat-label>Enter your email</mat-label>
-      <input
-        matInput
-        placeholder="pat@example.com"
-        formControlName="email"
-        required
-      />
-      <!-- <mat-error *ngIf="email.invalid">{{ getErrorMessage() }}</mat-error> -->
-    </mat-form-field>
-    <!-- Phone -->
-    <mat-form-field appearance="fill">
-      <mat-label>Enter your phone</mat-label>
-      <input matInput formControlName="phone" required />
-    </mat-form-field>
-    <!-- Website -->
-    <mat-form-field appearance="fill">
-      <mat-label>Enter your website</mat-label>
-      <input matInput formControlName="website" required />
-    </mat-form-field>
-  </div>
-  <button
-    mat-raised-button
-    color="primary"
-    [disabled]="registerForm.invalid || registerForm.pending"
-  >
-    Registrarse
-  </button>
-</form>
-
-<pre>
-      {{ registerForm.value | json }}
-  </pre
->
+<div class="form-container">
+  <mat-card class="form-card">
+    <form [formGroup]="registerForm" (submit)="signUp()">
+      <div class="example-container">
+        <!-- Name -->
+        <mat-form-field appearance="fill" class="field">
+          <mat-label>Name</mat-label>
+          <input formControlName="name" matInput />
+        </mat-form-field>
+        <!-- UserName -->
+        <mat-form-field appearance="fill" class="field">
+          <mat-label>UserName</mat-label>
+          <input formControlName="username" matInput />
+        </mat-form-field>
+        <!-- Email -->
+        <mat-form-field appearance="fill" class="field">
+          <mat-label>Enter your email</mat-label>
+          <input
+            matInput
+            placeholder="pat@example.com"
+            formControlName="email"
+            required
+          />
+        </mat-form-field>
+        <!-- Phone -->
+        <mat-form-field appearance="fill" class="field">
+          <mat-label>Enter your phone</mat-label>
+          <input matInput formControlName="phone" required />
+        </mat-form-field>
+        <!-- Website -->
+        <mat-form-field appearance="fill" class="field">
+          <mat-label>Enter your website</mat-label>
+          <input matInput formControlName="website" required />
+        </mat-form-field>
+      </div>
+      <div class="btn-container">
+        <button
+          mat-raised-button
+          color="primary"
+          [disabled]="registerForm.invalid || registerForm.pending"
+        >
+          Registrarse
+        </button>
+        <button mat-raised-button color="accent" routerLink="/auth/login">
+          Volver
+        </button>
+      </div>
+    </form>
+  </mat-card>
+</div>
