@@ -5,18 +5,7 @@ import { Comments } from 'src/app/posts/interfaces/comments.interface';
 @Component({
   selector: 'app-comments',
   templateUrl: './comments.component.html',
-  styles: [
-    `
-      .buttons-container {
-        display: flex;
-        flex-direction: row;
-        justify-content: center;
-      }
-      .btn {
-        margin: 0 5px;
-      }
-    `,
-  ],
+  styleUrls: ['./comments.component.css'],
 })
 export class CommentsComponent implements OnInit {
   @Input() post: number = 0;
