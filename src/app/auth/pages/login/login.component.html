@@ -1,4 +1,4 @@
-<form [formGroup]="loginForm" (submit)="logIn()">
+<form [formGroup]="loginForm" (ngSubmit)="logIn()">
   <div class="example-container">
     <!-- Email -->
     <mat-form-field appearance="fill">
@@ -12,23 +12,10 @@
       <!-- <mat-error *ngIf="email.invalid">{{ getErrorMessage() }}</mat-error> -->
     </mat-form-field>
     <!-- Password -->
-    <mat-form-field appearance="fill">
-      <mat-label>Enter your password</mat-label>
-      <input
-        matInput
-        [type]="hide ? 'password' : 'text'"
-        formControlName="password"
-      />
-      <button
-        mat-icon-button
-        matSuffix
-        (click)="hide = !hide"
-        [attr.aria-label]="'Hide password'"
-        [attr.aria-pressed]="hide"
-      >
-        <mat-icon>{{ hide ? "visibility_off" : "visibility" }}</mat-icon>
-      </button>
-    </mat-form-field>
+    <!-- <mat-form-field appearance="fill">
+      <mat-label>Enter your username</mat-label>
+      <input matInput formControlName="username" />
+    </mat-form-field> -->
   </div>
   <button
     routerLink="/posts/list"

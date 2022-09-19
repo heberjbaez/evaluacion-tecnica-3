@@ -1,7 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
+import { Auth } from '../../interfaces/auth.interface';
+import { EmailValidatorService } from '../../services/email-validator.service';
+import { emailPattern } from 'src/app/posts/shared/validators/validations';
 
 @Component({
   selector: 'app-login',
@@ -9,32 +17,22 @@ import { AuthService } from '../../services/auth.service';
   styleUrls: ['./login.component.css'],
 })
 export class LoginComponent implements OnInit {
-  loginForm: FormGroup = new FormGroup({
-    email: new FormControl('', [Validators.required, Validators.email]),
-    password: new FormControl('', [Validators.required]),
+  loginForm: FormGroup = this.fb.group({
+    email: [
+      '',
+      [Validators.required, Validators.pattern(emailPattern)],
+      [this.emailValidator],
+    ],
+    // username: ['', [Validators.required]],
   });
 
-  hide = true;
+  constructor(
+    private fb: FormBuilder,
+    private authService: AuthService,
+    private emailValidator: EmailValidatorService
+  ) {}
 
-  constructor(private authService: AuthService) {}
+  ngOnInit(): void {}
 
-  ngOnInit(): void {
-    this.loadData();
-  }
-
-  logIn(): void {
-    const credentials = this.loginForm.value;
-    console.log(credentials);
-  }
-
-  loadData(): void {
-    this.authService.getUsers().subscribe({
-      next: (res) => {
-        console.log(res);
-      },
-      error: (err) => {
-        console.log(err);
-      },
-    });
-  }
+  logIn() {}
 }
