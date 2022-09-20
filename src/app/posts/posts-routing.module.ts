@@ -19,6 +19,10 @@ const routes: Routes = [
     component: AddComponent,
   },
   {
+    path: 'post/edit/:id',
+    component: AddComponent,
+  },
+  {
     path: '**',
     redirectTo: 'list',
   },

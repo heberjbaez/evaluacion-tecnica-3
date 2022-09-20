@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { PostsService } from 'src/app/posts/services/posts.service';
 import { Comments } from 'src/app/posts/interfaces/comments.interface';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-comments',
@@ -10,11 +11,8 @@ import { Comments } from 'src/app/posts/interfaces/comments.interface';
 export class CommentsComponent implements OnInit {
   @Input() post: number = 0;
   @Output() onDate: EventEmitter<string> = new EventEmitter();
-
   date: Date = new Date();
-
   upperLower: boolean = true;
-
   comments: Comments[] = [];
 
   constructor(private postsService: PostsService) {}
@@ -31,6 +29,12 @@ export class CommentsComponent implements OnInit {
       error: (err) => {
         console.log(err);
       },
+    });
+  }
+
+  deleteComment(index: number) {
+    this.postsService.deleteComments(index).subscribe(() => {
+      console.log('eliminado');
     });
   }
 

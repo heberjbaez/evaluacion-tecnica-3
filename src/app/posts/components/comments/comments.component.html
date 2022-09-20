@@ -1,26 +1,39 @@
 <div class="card">
   <h5 class="card-header">Comments</h5>
+  <ul *ngFor="let comment of comments; let i = index">
+    <mat-card>
+      <li>
+        <strong> Name: </strong>
+        <label>{{ comment.name | upperLower: upperLower }}</label>
+      </li>
+      <li>
+        <p><strong> Comment: </strong> {{ comment.body }}</p>
+      </li>
 
-  <ul *ngFor="let comment of comments">
-    <li>
-      <strong> Name: </strong>
-      <label>{{ comment.name | upperLower: upperLower }}</label>
-    </li>
-    <li>
-      <p><strong> Comment: </strong> {{ comment.body }}</p>
-    </li>
+      <div class="btn-container">
+        <button
+          mat-button
+          color="accent"
+          [routerLink]="['/posts/post/edit', comment.id]"
+        >
+          <mat-icon>edit</mat-icon>
+        </button>
+        <button mat-button color="warn" (click)="deleteComment(comment.id)">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </div>
+    </mat-card>
   </ul>
   <div class="buttons-container">
-    <button type="button" class="btn btn-secondary" (click)="emmitDate()">
-      Emmit
-    </button>
+    <button mat-stroked-button (click)="emmitDate()" color="warn">Emmit</button>
     <button
+      class="btn"
+      mat-button
       [ngClass]="{
-        ' btn-primary': upperLower === true,
-        ' btn-danger': !upperLower
+        red: upperLower === true,
+        purple: !upperLower
       }"
       (click)="change()"
-      class="btn"
     >
       Change
     </button>

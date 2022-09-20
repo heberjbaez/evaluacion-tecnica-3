@@ -31,4 +31,14 @@ export class PostsService {
     const url = `${this.apiUrl}/comments?postId=${postId}`;
     return this.http.post<Comments[]>(url, comment);
   }
+
+  editComments(Id: number, comment: Comments): Observable<Comments> {
+    const url = `${this.apiUrl}/comments?id=${Id}`;
+    return this.http.put<Comments>(url, comment);
+  }
+
+  deleteComments(Id: number): Observable<Comments> {
+    const url = `${this.apiUrl}/comments?id=${Id}`;
+    return this.http.delete<Comments>(url);
+  }
 }

@@ -5,7 +5,7 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { PostsService } from '../../services/posts.service';
 import { emailPattern } from '../../shared/validators/validations';
 
@@ -16,9 +16,10 @@ import { emailPattern } from '../../shared/validators/validations';
 })
 export class AddComponent implements OnInit {
   @Input() post: number = 0;
+  commentId!: number;
+  action = 'New';
 
   newComment: FormGroup = this.fb.group({
-    postId: [],
     name: ['', [Validators.required]],
     email: ['', [Validators.required, Validators.pattern(emailPattern)]],
     body: ['', [Validators.required, Validators.maxLength(200)]],
@@ -27,20 +28,34 @@ export class AddComponent implements OnInit {
   constructor(
     private postService: PostsService,
     private router: Router,
-    private fb: FormBuilder
-  ) {}
+    private fb: FormBuilder,
+    private aRoute: ActivatedRoute
+  ) {
+    this.commentId = this.aRoute.snapshot.params['id'];
+  }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    if (this.commentId !== undefined) {
+      this.action = 'Edit';
+    }
+  }
 
   addComment(): void {
     this.postService
       .addPostComments(this.post, this.newComment.value)
       .subscribe({
         next: (res) => {
-          console.log(res);
           this.newComment.reset();
-          this.router.navigate(['/', 'posts', '/list']);
+          this.router.navigate(['/', 'posts', '/post/', this.post]);
         },
+      });
+  }
+
+  ediComment() {
+    this.postService
+      .editComments(this.commentId, this.newComment.value)
+      .subscribe((data) => {
+        console.log('New Data', data);
       });
   }
 }

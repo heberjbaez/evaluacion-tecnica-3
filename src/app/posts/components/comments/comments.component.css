@@ -7,3 +7,15 @@
 .btn {
     margin: 0 5px;
 }
+
+.red {
+    background-color: red;
+}
+
+.purple {
+    background-color: purple;
+}
+
+ul {
+    list-style: none;
+}

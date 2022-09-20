@@ -1,0 +1,27 @@
+.form-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding-top: 100px;
+}
+
+h3 {
+    text-align: center;
+    width: 100%;
+}
+
+.form-card {
+    width: 300px;
+    height: 400px;
+    padding: 10px;
+}
+
+.buttons-container {
+    margin-top: 10px;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.input {
+    width: 100%;
+}
