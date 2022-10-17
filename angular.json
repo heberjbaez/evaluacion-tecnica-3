@@ -23,6 +23,7 @@
               "src/assets"
             ],
             "styles": [
+             
               "./node_modules/@angular/material/prebuilt-themes/purple-green.css",
               "src/styles.css"
             ],
@@ -91,10 +92,21 @@
               "src/assets"
             ],
             "styles": [
+             
               "./node_modules/@angular/material/prebuilt-themes/purple-green.css",
               "src/styles.css"
             ],
             "scripts": []
+          }
+        },
+        "deploy": {
+          "builder": "@angular/fire:deploy",
+          "options": {
+            "prerender": false,
+            "ssr": false,
+            "browserTarget": "evaluacion-tecnica-2:build:production",
+            "firebaseProject": "evaluacion-tecnica-3-moby",
+            "firebaseHostingSite": "evaluacion-tecnica-3-moby"
           }
         }
       }

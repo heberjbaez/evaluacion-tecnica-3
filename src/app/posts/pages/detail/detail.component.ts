@@ -7,14 +7,7 @@ import { PostsService } from 'src/app/posts/services/posts.service';
 @Component({
   selector: 'app-detail',
   templateUrl: './detail.component.html',
-  styles: [
-    `
-      .heading-container {
-        display: flex;
-        justify-content: space-between;
-      }
-    `,
-  ],
+  styleUrls: ['./detail.component.css'],
 })
 export class DetailComponent implements OnInit {
   post!: Posts;

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
@@ -11,18 +11,22 @@ export class HeaderComponent implements OnInit {
   constructor(private router: Router) {}
 
   ngOnInit(): void {
-    if (sessionStorage.getItem('user')) {
+    if (localStorage.getItem('user')) {
       this.loadUser();
     }
   }
 
   loadUser() {
-    const user = JSON.parse(sessionStorage.getItem('user')!);
-    this.userName = user[0].name;
+    const user = JSON.parse(localStorage.getItem('user')!);
+    this.userName = user.user.email;
   }
 
   logOut() {
-    sessionStorage.removeItem('user');
+    localStorage.removeItem('user');
     this.router.navigate(['/', 'auth', '/login']);
+  }
+
+  edit() {
+    this.router.navigate(['/auth/edit-user']);
   }
 }

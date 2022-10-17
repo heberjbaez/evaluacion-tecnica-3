@@ -21,6 +21,7 @@
     <div class="user-container">
       <span>{{ userName }}</span>
       <button mat-button *ngIf="userName" (click)="logOut()">Logout</button>
+      <button mat-button *ngIf="userName" (click)="edit()">Edit</button>
     </div>
   </mat-toolbar>
   <div class="container">

@@ -19,7 +19,7 @@ export class AuthGuard implements CanActivate {
   }
 
   private checkCookie(): boolean {
-    if (sessionStorage.getItem('user')) {
+    if (localStorage.getItem('user')) {
       return true;
     } else {
       this.router.navigate(['/', 'auth', '/login']);

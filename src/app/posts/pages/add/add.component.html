@@ -3,6 +3,11 @@
     <h3>{{ action }} Comment</h3>
     <form [formGroup]="newComment" (submit)="addComment()">
       <div class="example-container">
+        <!-- PostId -->
+        <mat-form-field class="input" appearance="fill">
+          <mat-label>Post Id</mat-label>
+          <input formControlName="postId" matInput />
+        </mat-form-field>
         <!-- Name -->
         <mat-form-field class="input" appearance="fill">
           <mat-label>Name</mat-label>

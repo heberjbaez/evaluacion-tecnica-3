@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "evaluacion-tecnica-3-moby": {
+      "hosting": {
+        "evaluacion-tecnica-2": [
+          "evaluacion-tecnica-3-moby"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "evaluacion-tecnica-3-moby"
+  }
+}

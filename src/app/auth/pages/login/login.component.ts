@@ -10,6 +10,7 @@ import { AuthService } from '../../services/auth.service';
 import { Auth } from '../../interfaces/auth.interface';
 import { EmailValidatorService } from '../../services/email-validator.service';
 import { emailPattern } from 'src/app/posts/shared/validators/validations';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
 
 @Component({
   selector: 'app-login',
@@ -18,28 +19,27 @@ import { emailPattern } from 'src/app/posts/shared/validators/validations';
 })
 export class LoginComponent implements OnInit {
   loginForm: FormGroup = this.fb.group({
-    email: [
-      '',
-      [Validators.required, Validators.pattern(emailPattern)],
-      [this.emailValidator],
-    ],
+    email: ['', [Validators.required, Validators.pattern(emailPattern)]],
+    password: ['', [Validators.required]],
   });
 
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
     private emailValidator: EmailValidatorService,
-    private route: Router
+    private router: Router,
+    private afAuth: AngularFireAuth
   ) {}
 
   ngOnInit(): void {}
 
-  logIn(email: string) {
-    this.authService.getUser(email).subscribe({
-      next: (res) => {
-        sessionStorage.setItem('user', JSON.stringify(res));
-        this.route.navigate(['/', 'posts', '/list']);
-      },
+  logIn() {
+    const email = this.loginForm.get('email')?.value;
+    const password = this.loginForm.get('password')?.value;
+
+    this.afAuth.signInWithEmailAndPassword(email, password).then((res) => {
+      localStorage.setItem('user', JSON.stringify(res));
+      this.router.navigate(['/posts/list']);
     });
   }
 }

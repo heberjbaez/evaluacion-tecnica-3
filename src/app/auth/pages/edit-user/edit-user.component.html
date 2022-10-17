@@ -1,6 +1,6 @@
 <div class="form-container">
   <mat-card class="form-card">
-    <form [formGroup]="registerForm" (submit)="signUp()">
+    <form [formGroup]="registerForm" (submit)="updateUser()">
       <div class="example-container">
         <!-- Name -->
         <mat-form-field appearance="fill" class="field">
@@ -9,8 +9,8 @@
         </mat-form-field>
         <!-- UserName -->
         <mat-form-field appearance="fill" class="field">
-          <mat-label>Password</mat-label>
-          <input formControlName="password" matInput />
+          <mat-label>UserName</mat-label>
+          <input formControlName="username" matInput />
         </mat-form-field>
         <!-- Email -->
         <mat-form-field appearance="fill" class="field">
@@ -39,7 +39,7 @@
           color="primary"
           [disabled]="registerForm.invalid || registerForm.pending"
         >
-          Registrarse
+          Actualizar
         </button>
         <button mat-raised-button color="accent" routerLink="/auth/login">
           Volver
