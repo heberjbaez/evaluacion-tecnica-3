@@ -11,6 +11,7 @@ import { Auth } from '../../interfaces/auth.interface';
 import { EmailValidatorService } from '../../services/email-validator.service';
 import { emailPattern } from 'src/app/posts/shared/validators/validations';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-login',
@@ -37,9 +38,26 @@ export class LoginComponent implements OnInit {
     const email = this.loginForm.get('email')?.value;
     const password = this.loginForm.get('password')?.value;
 
-    this.afAuth.signInWithEmailAndPassword(email, password).then((res) => {
-      localStorage.setItem('user', JSON.stringify(res));
-      this.router.navigate(['/posts/list']);
-    });
+    this.afAuth
+      .signInWithEmailAndPassword(email, password)
+      .then((res) => {
+        Swal.fire('Bienvenido!');
+        localStorage.setItem('user', JSON.stringify(res));
+        this.router.navigate(['/posts/list']);
+        console.log(res.user?.uid);
+
+        this.authService.getUser().subscribe((res) => {
+          console.log(res);
+        });
+      })
+      .catch(() => {
+        Swal.fire('Error', 'El usuario no existe!', 'error');
+      });
+  }
+
+  fieldNotValid(field: string) {
+    return (
+      this.loginForm.get(field)?.invalid && this.loginForm.get(field)?.touched
+    );
   }
 }

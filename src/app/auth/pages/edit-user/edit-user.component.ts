@@ -22,9 +22,9 @@ export class EditUserComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  updateUser() {
-    this.authService
-      .editUser(this.registerForm.value)
-      .subscribe((res) => localStorage.setItem('user', JSON.stringify(res)));
-  }
+  // updateUser() {
+  //   this.authService
+  //     .editUser(this.registerForm.value)
+  //     .subscribe((res) => localStorage.setItem('user', JSON.stringify(res)));
+  // }
 }

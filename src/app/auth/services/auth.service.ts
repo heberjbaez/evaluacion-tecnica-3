@@ -1,39 +1,42 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import {
-  AbstractControl,
-  AsyncValidatorFn,
-  ValidationErrors,
-} from '@angular/forms';
-import { catchError, map, Observable, of } from 'rxjs';
+  AngularFirestore,
+  AngularFirestoreCollection,
+} from '@angular/fire/compat/firestore';
 import { Auth } from '../interfaces/auth.interface';
-import { Response } from '../interfaces/response.interface';
+import { Observable } from 'rxjs';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
+import {
+  collection,
+  Firestore,
+  addDoc,
+  collectionData,
+} from '@angular/fire/firestore';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  private apiUrl: string = 'https://heber-baez-endpoint.herokuapp.com';
+  constructor(
+    private firestore: Firestore,
+    private authFirebase: AngularFireAuth
+  ) {}
 
-  constructor(private http: HttpClient) {}
-
-  getUsers(): Observable<Auth[]> {
-    const url = `${this.apiUrl}/users`;
-    return this.http.get<Auth[]>(url);
+  addUser(user: Auth) {
+    const userRef = collection(this.firestore, 'users');
+    return addDoc(userRef, user);
   }
 
-  getUser(email: string): Observable<Auth> {
-    const url = `${this.apiUrl}/users?q=${email}`;
-    return this.http.get<Auth>(url);
+  getUser(): Observable<Auth[]> {
+    const userRef = collection(this.firestore, 'users');
+    return collectionData(userRef, { idField: 'id' }) as Observable<Auth[]>;
   }
 
-  createUser(user: Auth): Observable<Auth> {
-    const url = `${this.apiUrl}/users`;
-    return this.http.post<Auth>(url, user);
-  }
-
-  editUser(user: Auth): Observable<Auth> {
-    const url = `${this.apiUrl}/users/12`;
-    return this.http.put<Auth>(url, user);
+  registerUser(data: Auth) {
+    return this.authFirebase.createUserWithEmailAndPassword(
+      data.email,
+      data.password
+    );
   }
 }

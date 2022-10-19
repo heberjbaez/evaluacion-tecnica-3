@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { Geo } from '../interfaces/auth.interface';
 
 @Injectable({
   providedIn: 'root',

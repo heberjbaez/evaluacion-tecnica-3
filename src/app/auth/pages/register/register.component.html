@@ -1,26 +1,32 @@
+<div *ngIf="loading" class="spinner-container">
+  <app-spinner></app-spinner>
+</div>
 <div class="form-container">
   <mat-card class="form-card">
-    <form [formGroup]="registerForm" (submit)="signUp()">
+    <form [formGroup]="registerForm" (submit)="signIn()">
       <div class="example-container">
         <!-- Name -->
         <mat-form-field appearance="fill" class="field">
           <mat-label>Name</mat-label>
           <input formControlName="name" matInput />
         </mat-form-field>
-        <!-- UserName -->
-        <mat-form-field appearance="fill" class="field">
-          <mat-label>Password</mat-label>
-          <input formControlName="password" matInput />
-        </mat-form-field>
         <!-- Email -->
         <mat-form-field appearance="fill" class="field">
           <mat-label>Enter your email</mat-label>
           <input
             matInput
-            placeholder="pat@example.com"
+            placeholder="email@example.com"
             formControlName="email"
             required
           />
+        </mat-form-field>
+        <!-- Password -->
+        <mat-form-field appearance="fill" class="field">
+          <mat-label>Password</mat-label>
+          <input formControlName="password" matInput type="password" />
+          <mat-error *ngIf="fieldNotValid('password')"
+            >La contraseña debe ser mayor a 6 caracteres</mat-error
+          >
         </mat-form-field>
         <!-- Phone -->
         <mat-form-field appearance="fill" class="field">
