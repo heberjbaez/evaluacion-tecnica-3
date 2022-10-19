@@ -42,13 +42,10 @@ export class LoginComponent implements OnInit {
       .signInWithEmailAndPassword(email, password)
       .then((res) => {
         Swal.fire('Bienvenido!');
-        localStorage.setItem('user', JSON.stringify(res));
-        this.router.navigate(['/posts/list']);
-        console.log(res.user?.uid);
 
-        this.authService.getUser().subscribe((res) => {
-          console.log(res);
-        });
+        this.router.navigate(['/posts/list']);
+
+        this.authService.getUser().subscribe((res) => {});
       })
       .catch(() => {
         Swal.fire('Error', 'El usuario no existe!', 'error');

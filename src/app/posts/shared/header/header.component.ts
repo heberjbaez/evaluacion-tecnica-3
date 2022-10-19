@@ -1,5 +1,9 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { NavigationEnd, Router } from '@angular/router';
+import { Auth } from 'src/app/auth/interfaces/auth.interface';
+import { AuthService } from 'src/app/auth/services/auth.service';
+import Swal from 'sweetalert2';
+import { FirestoreService } from '../../../auth/services/firestore.service';
 
 @Component({
   selector: 'app-header',
@@ -7,26 +11,59 @@ import { Router } from '@angular/router';
   styleUrls: ['./header.component.css'],
 })
 export class HeaderComponent implements OnInit {
-  userName: string = '';
-  constructor(private router: Router) {}
+  currentRoute: string = '';
+  login: boolean = false;
+  rol!: 'user' | 'admin';
+  userName!: string;
+  constructor(
+    private router: Router,
+    private authService: AuthService,
+    private firestore: FirestoreService
+  ) {
+    this.authService.stateUser().subscribe((res) => {
+      if (res) {
+        this.login = true;
+        this.getUserData(res.uid);
+      } else {
+        this.login = false;
+      }
+    });
+
+    this.router.events.subscribe((e) => {
+      if (e instanceof NavigationEnd) {
+        this.currentRoute = e.url;
+      }
+    });
+  }
 
   ngOnInit(): void {
-    if (localStorage.getItem('user')) {
-      this.loadUser();
-    }
+    // if (localStorage.getItem('user')) {
+    //   this.loadUser();
+    // }
   }
 
-  loadUser() {
-    const user = JSON.parse(localStorage.getItem('user')!);
-    this.userName = user.user.email;
-  }
+  // loadUser() {
+  //   const user = JSON.parse(localStorage.getItem('user')!);
+  //   this.userName = user.user.email;
+  // }
 
   logOut() {
-    localStorage.removeItem('user');
+    this.authService.logOut();
+    Swal.fire('Sesion finalizada');
     this.router.navigate(['/', 'auth', '/login']);
   }
 
   edit() {
     this.router.navigate(['/auth/edit-user']);
+  }
+
+  getUserData(uid: string) {
+    const id = uid;
+    this.firestore.getDoc<Auth>('Users', id).subscribe((res) => {
+      if (res) {
+        this.rol = res.rol;
+        this.userName = res.name;
+      }
+    });
   }
 }

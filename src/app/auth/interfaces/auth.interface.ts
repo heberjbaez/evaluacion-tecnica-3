@@ -1,5 +1,5 @@
 export interface Auth {
-  nombre: string;
+  name: string;
   email: string;
   password: string;
   uid: string;

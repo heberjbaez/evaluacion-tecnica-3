@@ -39,4 +39,21 @@ export class AuthService {
       data.password
     );
   }
+
+  logOut() {
+    this.authFirebase.signOut();
+  }
+
+  stateUser() {
+    return this.authFirebase.authState;
+  }
+
+  async getUid() {
+    const user = await this.authFirebase.currentUser;
+    if (user) {
+      return user?.uid;
+    } else {
+      return null;
+    }
+  }
 }
