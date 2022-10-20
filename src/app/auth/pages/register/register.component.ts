@@ -19,6 +19,7 @@ export class RegisterComponent implements OnInit {
     email: ['', [Validators.required, Validators.pattern(emailPattern)]],
     password: ['', [Validators.required, Validators.minLength(6)]],
     username: ['', Validators.required],
+    img: ['', Validators.required],
     phone: [''],
     website: [''],
     adress: [''],
@@ -58,6 +59,7 @@ export class RegisterComponent implements OnInit {
         'success'
       );
       this.router.navigate(['/auth/login']);
+      this.authService.logOut();
     }
   }
 

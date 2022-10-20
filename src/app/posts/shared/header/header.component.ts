@@ -51,6 +51,7 @@ export class HeaderComponent implements OnInit {
     this.authService.logOut();
     Swal.fire('Sesion finalizada');
     this.router.navigate(['/', 'auth', '/login']);
+    this.userName = '';
   }
 
   edit() {

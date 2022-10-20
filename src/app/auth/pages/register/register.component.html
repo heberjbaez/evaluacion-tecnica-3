@@ -3,12 +3,18 @@
 </div>
 <div class="form-container">
   <mat-card class="form-card">
+    <img class="profile-img" src="../../../../assets/profile-pic.png" alt="" />
     <form [formGroup]="registerForm" (submit)="signIn()">
       <div class="example-container">
         <!-- Name -->
         <mat-form-field appearance="fill" class="field">
           <mat-label>Name</mat-label>
           <input formControlName="name" matInput />
+        </mat-form-field>
+        <!-- Profile pic -->
+        <mat-form-field appearance="fill" class="field">
+          <mat-label>URL profile image</mat-label>
+          <input formControlName="img" matInput />
         </mat-form-field>
         <!-- UserName -->
         <mat-form-field appearance="fill" class="field">

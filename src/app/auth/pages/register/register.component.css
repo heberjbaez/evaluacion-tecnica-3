@@ -2,11 +2,16 @@
     width: 100%;
     display: flex;
     justify-content: center;
-    padding-top: 100px;
 }
 
 .form-card {
     width: 300px;
+}
+
+.profile-img {
+    width: 100px;
+    height: 80px;
+
 }
 
 .field {
