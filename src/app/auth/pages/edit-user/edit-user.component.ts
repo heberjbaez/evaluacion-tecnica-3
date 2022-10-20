@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
-import { emailPattern } from 'src/app/posts/shared/validators/validations';
 import Swal from 'sweetalert2';
 import { Auth } from '../../interfaces/auth.interface';
 import { AuthService } from '../../services/auth.service';
@@ -17,8 +16,8 @@ export class EditUserComponent implements OnInit {
   uid!: string;
   userInfo!: Auth;
   registerForm: FormGroup = this.fb.group({
-    username: ['', [Validators.required]],
-    imgProfile: ['', [Validators.required]],
+    title: ['', [Validators.required, Validators.maxLength(100)]],
+    body: ['', [Validators.required, Validators.maxLength(500)]],
   });
 
   constructor(

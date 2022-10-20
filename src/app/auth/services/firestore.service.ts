@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { Auth } from '../interfaces/auth.interface';
 import { Observable } from 'rxjs';
+import { Posts } from '../../posts/interfaces/posts.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -20,6 +21,11 @@ export class FirestoreService {
 
   getCollection(path: string) {
     const collection = this.firestore.collection(path);
+    return collection.valueChanges();
+  }
+
+  getCollectionPost<Posts>(path: string) {
+    const collection = this.firestore.collection<Posts>(path);
     return collection.valueChanges();
   }
 

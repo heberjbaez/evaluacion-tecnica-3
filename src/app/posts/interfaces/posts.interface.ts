@@ -1,6 +1,9 @@
+import { Auth } from 'src/app/auth/interfaces/user.interface';
+
 export interface Posts {
-  userId: number;
-  id: number;
   title: string;
   body: string;
+  author: Auth;
+  postId: string;
+  date: Date;
 }

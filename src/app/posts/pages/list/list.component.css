@@ -14,3 +14,15 @@ a {
 a:hover {
     color: whitesmoke;
 }
+
+.btn-container {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.form-new-post {
+
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+}
