@@ -1,44 +1,22 @@
-<div class="form-container">
-  <mat-card class="form-card">
+<div class="profile-container">
+  <div class="form-container">
     <form [formGroup]="registerForm">
       <div class="example-container">
-        <!-- Name -->
-        <mat-form-field appearance="fill" class="field">
-          <mat-label>Name</mat-label>
-          <input formControlName="name" matInput />
-        </mat-form-field>
         <!-- UserName -->
         <mat-form-field appearance="fill" class="field">
           <mat-label>UserName</mat-label>
           <input formControlName="username" matInput />
         </mat-form-field>
-        <!-- Email -->
+        <!-- Img Profile -->
         <mat-form-field appearance="fill" class="field">
-          <mat-label>Enter your email</mat-label>
-          <input
-            matInput
-            placeholder="pat@example.com"
-            formControlName="email"
-            required
-          />
-        </mat-form-field>
-        <!-- Phone -->
-        <mat-form-field appearance="fill" class="field">
-          <mat-label>Enter your phone</mat-label>
-          <input matInput formControlName="phone" required />
-        </mat-form-field>
-        <!-- Website -->
-        <mat-form-field appearance="fill" class="field">
-          <mat-label>Enter your website</mat-label>
-          <input matInput formControlName="website" required />
+          <mat-label>URL image</mat-label>
+          <input formControlName="imgProfile" matInput />
         </mat-form-field>
       </div>
+
       <div class="btn-container">
-        <button
-          mat-raised-button
-          color="primary"
-          [disabled]="registerForm.invalid || registerForm.pending"
-        >
+        <button mat-raised-button color="primary" (click)="updateUserInfo()">
+          <!-- [disabled]="registerForm.invalid || registerForm.pending" -->
           Actualizar
         </button>
         <button mat-raised-button color="accent" routerLink="/auth/login">
@@ -46,5 +24,13 @@
         </button>
       </div>
     </form>
-  </mat-card>
+  </div>
+  <div class="user-info">
+    <img [src]="userInfo.img" alt="" class="profile-picture" />
+    <span>Nombre: {{ userInfo.name }}</span>
+    <span>Email: {{ userInfo.email }}</span>
+    <span>Rol: {{ userInfo.rol }}</span>
+    <span>Username: {{ userInfo.username }}</span>
+    <span>Posts: </span>
+  </div>
 </div>

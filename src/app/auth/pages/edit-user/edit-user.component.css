@@ -1,8 +1,14 @@
+.profile-container {
+    display: flex;
+    padding: 10px;
+}
+
 .form-container {
-    width: 100%;
+    width: 500px;
     display: flex;
     justify-content: center;
     padding-top: 100px;
+
 }
 
 .form-card {
@@ -17,4 +23,15 @@
     width: 100%;
     display: flex;
     justify-content: space-evenly;
+}
+
+.user-info {
+    display: flex;
+    flex-direction: column;
+    padding: 30px;
+}
+
+.profile-picture {
+    width: 100px;
+    height: 100px;
 }
