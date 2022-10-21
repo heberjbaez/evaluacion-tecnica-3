@@ -33,7 +33,9 @@ export class ListComponent implements AfterViewInit, OnInit {
     private authService: AuthService
   ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.loadPosts();
+  }
 
   ngAfterViewInit() {
     this.listPaginator.paginator = this.paginator;
@@ -58,6 +60,10 @@ export class ListComponent implements AfterViewInit, OnInit {
     });
   }
 
+  newPost() {
+    // this.newPostForm.reset();
+  }
+
   async saveNewPost() {
     this.loading = true;
     await this.firestore.createDoc(
@@ -67,5 +73,30 @@ export class ListComponent implements AfterViewInit, OnInit {
     );
     this.loading = false;
     Swal.fire('Post creado con exito!');
+  }
+
+  editPost(post: Posts) {
+    console.log('editar', post);
+    this.newPostForm.setValue(post);
+  }
+
+  async deletePost(post: Posts) {
+    const res = await Swal.fire({
+      icon: 'warning',
+      title: '¿Estás seguro/a de eliminar este Post?',
+      showConfirmButton: true,
+      confirmButtonText: 'ELIMINAR',
+      confirmButtonColor: '#3085d6',
+      showCancelButton: true,
+      cancelButtonText: 'CANCELAR',
+      cancelButtonColor: '#d33',
+      buttonsStyling: true,
+    });
+    this.loading = true;
+    if (res.isConfirmed === true) {
+      await this.firestore.deleteDoc('Posts', post.postId);
+      Swal.fire('El post se ha eliminado con éxito');
+      this.loading = false;
+    }
   }
 }
