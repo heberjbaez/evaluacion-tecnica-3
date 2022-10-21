@@ -11,6 +11,7 @@ import { FirestoreService } from '../../../auth/services/firestore.service';
   styleUrls: ['./header.component.css'],
 })
 export class HeaderComponent implements OnInit {
+  token: boolean = false;
   currentRoute: string = '';
   login: boolean = false;
   rol!: 'user' | 'admin';
@@ -34,24 +35,19 @@ export class HeaderComponent implements OnInit {
         this.currentRoute = e.url;
       }
     });
+
+    if (localStorage.getItem('token')) {
+      this.token = true;
+    }
   }
 
-  ngOnInit(): void {
-    // if (localStorage.getItem('user')) {
-    //   this.loadUser();
-    // }
-  }
-
-  // loadUser() {
-  //   const user = JSON.parse(localStorage.getItem('user')!);
-  //   this.userName = user.user.email;
-  // }
+  ngOnInit(): void {}
 
   logOut() {
+    localStorage.removeItem('token');
     this.authService.logOut();
     Swal.fire('Sesion finalizada');
     this.router.navigate(['/', 'auth', '/login']);
-    this.userName = '';
   }
 
   edit() {

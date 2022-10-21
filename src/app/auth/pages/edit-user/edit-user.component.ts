@@ -64,7 +64,7 @@ export class EditUserComponent implements OnInit {
     const updateDoc = { username: username, img: img };
 
     this.firestore.updateDoc('Users', id, updateDoc).then(() => {
-      // Swal.fire('Datos actualizados');
+      Swal.fire('Datos actualizados');
     });
   }
 }

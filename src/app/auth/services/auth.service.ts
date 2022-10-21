@@ -51,9 +51,9 @@ export class AuthService {
   async getUid() {
     const user = await this.authFirebase.currentUser;
     if (user) {
-      return user?.uid;
+      return user.uid;
     } else {
-      return null;
+      return undefined;
     }
   }
 }

@@ -3,6 +3,8 @@ import { PostsService } from 'src/app/posts/services/posts.service';
 import { Comments } from 'src/app/posts/interfaces/comments.interface';
 import { ActivatedRoute } from '@angular/router';
 import { FirestoreService } from '../../../auth/services/firestore.service';
+import { Like } from '../../interfaces/likes.interface';
+import { AuthService } from 'src/app/auth/services/auth.service';
 
 @Component({
   selector: 'app-comments',
@@ -14,30 +16,26 @@ export class CommentsComponent implements OnInit {
   @Output() onDate: EventEmitter<string> = new EventEmitter();
   date: Date = new Date();
   upperLower: boolean = true;
-  comments!: any;
+  comments: Comments[] = [];
+  likeComment: boolean = false;
 
   constructor(
     private postsService: PostsService,
-    private firestore: FirestoreService
+    private firestore: FirestoreService,
+    private authService: AuthService
   ) {}
 
   ngOnInit(): void {
     this.getComments();
+    this.loadUsersLikes();
   }
 
   getComments() {
-    // this.postsService.getPostComments(this.post).subscribe({
-    //   next: (comments) => {
-    //     this.comments = comments;
-    //   },
-    //   error: (err) => {
-    //     console.log(err);
-    //   },
-    // });
+    const id = this.firestore.getId();
     const path = 'Posts/' + this.post + '/Comments/';
-    this.firestore.getDoc(path, 'FbDix8M2yuAiM1l4ocD8').subscribe((res) => {
+    this.firestore.getCollectionComment<Comments>(path).subscribe((res) => {
       this.comments = res;
-      console.log(this.comments);
+      console.log(res);
     });
   }
 
@@ -54,5 +52,30 @@ export class CommentsComponent implements OnInit {
 
   change() {
     this.upperLower = !this.upperLower;
+  }
+
+  async like() {
+    const path = 'Posts/' + this.post + '/Likes/';
+    const uid = await this.authService.getUid();
+    const data: Like = {
+      uid,
+      date: new Date(),
+      like: !this.likeComment,
+    };
+    console.log(data.like);
+
+    this.firestore.createDoc(data, path, uid);
+  }
+
+  async loadUsersLikes() {
+    const path = 'Posts/' + this.post + '/Likes/';
+    const uid = (await this.authService.getUid()) as string;
+    this.firestore.getDoc<Like>(path, uid).subscribe((res) => {
+      if (res) {
+        if (res.like) {
+          this.likeComment = res.like;
+        }
+      }
+    });
   }
 }

@@ -12,16 +12,41 @@
       (onDate)="viewLastComment($event)"
       [post]="post.postId"
     ></app-comments>
-    <!-- <button
+    <button
       [routerLink]="['/posts/post/add', post.id]"
       mat-raised-button
       color="primary"
     >
       New Comment
-    </button> -->
+    </button>
   </ng-template>
 
   <div *ngIf="!post; else divPostDetail">
     <h1>No existe el post</h1>
   </div>
 </div>
+
+<form [formGroup]="newCommentForm" class="form-add-new-comment">
+  <div *ngIf="loading" class="spinner-container">
+    <app-spinner></app-spinner>
+  </div>
+  <mat-card class="form-new-post">
+    <mat-form-field appearance="fill">
+      <mat-label>Title</mat-label>
+      <input matInput formControlName="title" />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Body</mat-label>
+      <textarea matInput formControlName="body"></textarea>
+    </mat-form-field>
+    <button
+      class="btn-new-post"
+      mat-flat-button
+      color="primary"
+      (click)="saveNewComment()"
+    >
+      Save
+    </button>
+  </mat-card>
+</form>

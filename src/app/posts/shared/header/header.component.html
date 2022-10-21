@@ -1,33 +1,35 @@
 <mat-sidenav-container fullscreen>
-  <div class="menu-container"></div>
-  <mat-sidenav #sidenav mode="push">
-    <mat-toolbar color="primary">
-      <span>Menú</span>
-    </mat-toolbar>
-    <mat-nav-list>
-      <a (click)="sidenav.toggle()" mat-list-item routerLink="posts/list"
-        >Posts</a
+  <div class="menu-container">
+    <mat-sidenav #sidenav mode="push">
+      <mat-toolbar color="primary">
+        <span>Menú</span>
+      </mat-toolbar>
+      <mat-nav-list>
+        <a (click)="sidenav.toggle()" mat-list-item routerLink="posts/list"
+          >Posts</a
+        >
+      </mat-nav-list>
+    </mat-sidenav>
+    <mat-toolbar>
+      <button
+        mat-icon-button
+        (click)="sidenav.toggle()"
+        aria-label="Example icon-button with menu icon"
+        *ngIf="token"
       >
-    </mat-nav-list>
-  </mat-sidenav>
-  <mat-toolbar>
-    <button
-      mat-icon-button
-      (click)="sidenav.toggle()"
-      aria-label="Example icon-button with menu icon"
-    >
-      <mat-icon>menu</mat-icon>
-    </button>
-    <div class="user-container">
-      <span>{{ userName | titlecase }}</span>
-      <button mat-button (click)="logOut()">Logout</button>
-      <button mat-button (click)="edit()" routerLink="auth/edit-user">
-        Edit
+        <mat-icon>menu</mat-icon>
       </button>
+      <div class="user-container" *ngIf="token">
+        <span>{{ userName | titlecase }}</span>
+        <button mat-button (click)="logOut()">Logout</button>
+        <button mat-button (click)="edit()" routerLink="auth/edit-user">
+          Edit
+        </button>
+      </div>
+    </mat-toolbar>
+    <span class="currentRoute" *ngIf="token"> home{{ currentRoute }} </span>
+    <div class="container">
+      <router-outlet></router-outlet>
     </div>
-  </mat-toolbar>
-  <span class="currentRoute"> home{{ currentRoute }} </span>
-  <div class="container">
-    <router-outlet></router-outlet>
   </div>
 </mat-sidenav-container>

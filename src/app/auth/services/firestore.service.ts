@@ -3,6 +3,7 @@ import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { Auth } from '../interfaces/auth.interface';
 import { Observable } from 'rxjs';
 import { Posts } from '../../posts/interfaces/posts.interface';
+import { Comments } from '../../posts/interfaces/comments.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -10,7 +11,7 @@ import { Posts } from '../../posts/interfaces/posts.interface';
 export class FirestoreService {
   constructor(private firestore: AngularFirestore) {}
 
-  createDoc(data: Auth, path: string, id: string) {
+  createDoc(data: any, path: string, id: any) {
     const collection = this.firestore.collection(path);
     return collection.doc(id).set(data);
   }
@@ -21,6 +22,11 @@ export class FirestoreService {
 
   getCollection(path: string) {
     const collection = this.firestore.collection(path);
+    return collection.valueChanges();
+  }
+
+  getCollectionComment<Comments>(path: string) {
+    const collection = this.firestore.collection<Comments>(path);
     return collection.valueChanges();
   }
 

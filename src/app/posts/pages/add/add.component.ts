@@ -8,6 +8,9 @@ import {
 import { Router, ActivatedRoute } from '@angular/router';
 import { PostsService } from '../../services/posts.service';
 import { emailPattern } from '../../shared/validators/validations';
+import { FirestoreService } from '../../../auth/services/firestore.service';
+import Swal from 'sweetalert2';
+import { switchMap } from 'rxjs';
 
 @Component({
   selector: 'app-add',
@@ -31,7 +34,9 @@ export class AddComponent implements OnInit {
     private postService: PostsService,
     private router: Router,
     private fb: FormBuilder,
-    private aRoute: ActivatedRoute
+    private aRoute: ActivatedRoute,
+    private firestore: FirestoreService,
+    private activatedRoute: ActivatedRoute
   ) {
     this.commentId = this.aRoute.snapshot.params['id'];
   }
@@ -43,17 +48,14 @@ export class AddComponent implements OnInit {
   }
 
   addComment(): void {
-    this.postService
-      .addPostComments(this.post, this.newComment.value)
-      .subscribe({
-        next: (res) => {
-          this.newComment.reset();
-          this.router.navigate(['/', 'posts', '/post/', this.post]);
-          const hours = this.date.getHours();
-          const min = this.date.getMinutes();
-          console.log(hours + ':' + min);
-        },
-      });
+    console.log(this.post);
+    const path = 'Posts/' + this.post + '/Comments/';
+    this.firestore.createDoc(
+      this.newComment.value,
+      path,
+      this.firestore.getId()
+    );
+    Swal.fire('Comentario agregado!');
   }
 
   editComment() {

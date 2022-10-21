@@ -51,17 +51,6 @@ export class ListComponent implements AfterViewInit, OnInit {
 
   ngAfterViewInit() {}
 
-  // loadPosts() {
-  //   this.postsService.getPosts().subscribe({
-  //     next: (resultList) => {
-  //       this.listPaginator.data = resultList;
-  //     },
-  //     error: (err) => {
-  //       console.log(err);
-  //     },
-  //   });
-  // }
-
   async getUid() {
     const uid = await this.authService.getUid();
     if (uid) {
@@ -87,10 +76,6 @@ export class ListComponent implements AfterViewInit, OnInit {
         this.listPaginator.data = res;
       }
     });
-  }
-
-  newPost() {
-    // this.newPostForm.reset();
   }
 
   async saveNewPost() {

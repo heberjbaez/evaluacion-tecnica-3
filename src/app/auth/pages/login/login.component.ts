@@ -45,6 +45,9 @@ export class LoginComponent implements OnInit {
 
         this.router.navigate(['/posts/list']);
 
+        const token = res.user?.uid;
+        localStorage.setItem('token', JSON.stringify(token));
+
         this.authService.getUser().subscribe((res) => {});
       })
       .catch(() => {

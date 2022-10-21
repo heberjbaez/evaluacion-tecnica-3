@@ -2,3 +2,9 @@
     display: flex;
     justify-content: space-between;
 }
+
+.form-add-new-comment {
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+}

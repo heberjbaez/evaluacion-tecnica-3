@@ -1,26 +1,36 @@
 <div class="card">
   <h5 class="card-header">Comments</h5>
-  <ul *ngFor="let comment of comments | keyvalue">
+  <ul *ngFor="let comment of comments">
     <mat-card>
       <li>
         <strong> Name: </strong>
-        <label>{{ comments.name | upperLower: upperLower }}</label>
+        <!-- <label>{{ comment.name | upperLower: upperLower }}</label> -->
       </li>
       <li>
-        <p><strong> Comment: </strong> {{ comments.body }}</p>
+        <p><strong> Comment: </strong> {{ comment.body }}</p>
       </li>
 
       <div class="btn-container">
         <button
           mat-button
           color="accent"
-          [routerLink]="['/posts/post/edit', comments.id]"
+          [routerLink]="['/posts/post/edit', comment.id]"
         >
           <mat-icon>edit</mat-icon>
         </button>
         <button mat-button color="warn">
           <mat-icon>delete</mat-icon>
         </button>
+        <button mat-button (click)="like()">
+          <mat-icon *ngIf="likeComment">thumb_up</mat-icon>
+          <mat-icon *ngIf="!likeComment" color="warn">thumb_up</mat-icon>
+        </button>
+
+        <mat-icon
+          svgIcon="thumbs-up"
+          aria-hidden="false"
+          aria-label="Example thumbs up SVG icon"
+        ></mat-icon>
       </div>
     </mat-card>
   </ul>
