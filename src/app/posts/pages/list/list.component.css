@@ -26,3 +26,8 @@ a:hover {
     flex-direction: column;
     width: 300px;
 }
+
+.author-img {
+    width: 20px;
+    height: 20px;
+}

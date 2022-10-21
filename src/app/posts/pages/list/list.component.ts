@@ -7,6 +7,7 @@ import { FirestoreService } from '../../../auth/services/firestore.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import Swal from 'sweetalert2';
 import { AuthService } from '../../../auth/services/auth.service';
+import { Auth } from 'src/app/auth/interfaces/auth.interface';
 
 @Component({
   selector: 'app-list',
@@ -14,14 +15,19 @@ import { AuthService } from '../../../auth/services/auth.service';
   styleUrls: ['./list.component.css'],
 })
 export class ListComponent implements AfterViewInit, OnInit {
+  hide = true;
+  uid!: string;
+  userInfo!: Auth;
   loading: boolean = false;
-  displayedColumns: string[] = ['id', 'title', 'actions'];
+  displayedColumns: string[] = ['author', 'id', 'title', 'actions'];
 
   listPaginator = new MatTableDataSource<Posts>([]);
   newPostForm: FormGroup = this.fb.group({
     title: ['', [Validators.required]],
     body: ['', [Validators.required]],
     postId: [this.firestore.getId()],
+    author: [],
+    date: [],
   });
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -35,11 +41,15 @@ export class ListComponent implements AfterViewInit, OnInit {
 
   ngOnInit(): void {
     this.loadPosts();
+    this.listPaginator.paginator = this.paginator;
+
+    this.authService.stateUser().subscribe((res) => {
+      this.getUid();
+    });
+    this.getUid();
   }
 
-  ngAfterViewInit() {
-    this.listPaginator.paginator = this.paginator;
-  }
+  ngAfterViewInit() {}
 
   // loadPosts() {
   //   this.postsService.getPosts().subscribe({
@@ -51,6 +61,25 @@ export class ListComponent implements AfterViewInit, OnInit {
   //     },
   //   });
   // }
+
+  async getUid() {
+    const uid = await this.authService.getUid();
+    if (uid) {
+      this.uid = uid;
+      this.getUserData();
+    } else {
+      console.log('error al obtener los datos del usuario');
+    }
+  }
+
+  getUserData() {
+    const id = this.uid;
+    this.firestore.getDoc<Auth>('Users', id).subscribe((res) => {
+      if (res) {
+        this.userInfo = res;
+      }
+    });
+  }
 
   loadPosts() {
     this.firestore.getCollectionPost<Posts>('Posts').subscribe((res) => {
@@ -65,7 +94,10 @@ export class ListComponent implements AfterViewInit, OnInit {
   }
 
   async saveNewPost() {
-    this.loading = true;
+    const datePublishedPost = new Date();
+    this.newPostForm.value.date = datePublishedPost;
+    this.newPostForm.value.author = this.userInfo;
+
     await this.firestore.createDoc(
       this.newPostForm.value,
       'Posts',

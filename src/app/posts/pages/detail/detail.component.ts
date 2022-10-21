@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { switchMap } from 'rxjs';
 import { Posts } from 'src/app/posts/interfaces/posts.interface';
 import { PostsService } from 'src/app/posts/services/posts.service';
+import { FirestoreService } from '../../../auth/services/firestore.service';
 
 @Component({
   selector: 'app-detail',
@@ -10,12 +11,13 @@ import { PostsService } from 'src/app/posts/services/posts.service';
   styleUrls: ['./detail.component.css'],
 })
 export class DetailComponent implements OnInit {
-  post!: Posts;
+  post!: any;
   lastComment = '';
 
   constructor(
     private activatedRoute: ActivatedRoute,
-    private postsService: PostsService
+    private postsService: PostsService,
+    private firestore: FirestoreService
   ) {}
 
   ngOnInit(): void {
@@ -24,7 +26,7 @@ export class DetailComponent implements OnInit {
 
   viewDetails() {
     this.activatedRoute.params
-      .pipe(switchMap(({ id }) => this.postsService.getPostDetail(id)))
+      .pipe(switchMap(({ id }) => this.firestore.getPost('Posts', id)))
       .subscribe((post) => {
         this.post = post;
       });

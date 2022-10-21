@@ -1,8 +1,19 @@
 <div class="table-container">
   <table mat-table [dataSource]="listPaginator" class="mat-elevation-z8">
+    <ng-container matColumnDef="author">
+      <th mat-header-cell *matHeaderCellDef>Author</th>
+      <td mat-cell *matCellDef="let element">
+        <img [src]="userInfo.img" alt="" class="author-img" />
+        <p>{{ userInfo.name }}</p>
+        <p>{{ element.date * 1000 | date: "MM/dd" }}/2022</p>
+      </td>
+    </ng-container>
+
     <ng-container matColumnDef="id">
-      <th mat-header-cell *matHeaderCellDef>ID</th>
-      <td mat-cell *matCellDef="let element">{{ element.postId }}</td>
+      <th mat-header-cell *matHeaderCellDef>Post ID</th>
+      <td mat-cell *matCellDef="let element">
+        {{ element.postId }}
+      </td>
     </ng-container>
 
     <ng-container matColumnDef="title">
@@ -14,9 +25,12 @@
       <th mat-header-cell *matHeaderCellDef>Actions</th>
       <td mat-cell *matCellDef="let element">
         <div class="btn-container">
-          <a [routerLink]="['/posts/post', element.id]">Ver</a>
+          <a [routerLink]="['/posts/post', element.postId]">Ver</a>
           <a (click)="editPost(element)"> <mat-icon>edit</mat-icon></a>
           <a (click)="deletePost(element)"> <mat-icon>delete</mat-icon></a>
+          <button mat-icon-button matSuffix (click)="hide = !hide">
+            <mat-icon>{{ hide ? "visibility_off" : "visibility" }}</mat-icon>
+          </button>
         </div>
       </td>
     </ng-container>

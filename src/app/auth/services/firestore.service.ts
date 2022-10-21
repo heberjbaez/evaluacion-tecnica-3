@@ -33,6 +33,10 @@ export class FirestoreService {
     return this.firestore.collection(path).doc<Auth>(id).valueChanges();
   }
 
+  getPost(path: string, id: string) {
+    return this.firestore.collection(path).doc(id).valueChanges();
+  }
+
   updateDoc(path: string, id: string, data: any) {
     return this.firestore.collection(path).doc(id).update(data);
   }
