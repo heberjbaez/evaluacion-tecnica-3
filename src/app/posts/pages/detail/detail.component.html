@@ -1,17 +1,17 @@
 <div class="container">
   <ng-template #divPostDetail>
     <div class="heading-container">
-      <h5>Detail post: {{ post.id }}</h5>
+      <h5>Detail post: {{ post.postId }}</h5>
       <div *ngIf="lastComment !== ''">Last comment: {{ lastComment }}</div>
     </div>
     <h2>{{ post.title | titlecase }}</h2>
     <p>
       {{ post.body }}
     </p>
-    <!-- <app-comments
+    <app-comments
       (onDate)="viewLastComment($event)"
-      [post]="post.id"
-    ></app-comments> -->
+      [post]="post.postId"
+    ></app-comments>
     <!-- <button
       [routerLink]="['/posts/post/add', post.id]"
       mat-raised-button

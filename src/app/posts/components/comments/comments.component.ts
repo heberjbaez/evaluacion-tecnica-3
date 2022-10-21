@@ -2,6 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { PostsService } from 'src/app/posts/services/posts.service';
 import { Comments } from 'src/app/posts/interfaces/comments.interface';
 import { ActivatedRoute } from '@angular/router';
+import { FirestoreService } from '../../../auth/services/firestore.service';
 
 @Component({
   selector: 'app-comments',
@@ -9,26 +10,34 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./comments.component.css'],
 })
 export class CommentsComponent implements OnInit {
-  @Input() post: number = 0;
+  @Input() post!: string;
   @Output() onDate: EventEmitter<string> = new EventEmitter();
   date: Date = new Date();
   upperLower: boolean = true;
-  comments: Comments[] = [];
+  comments!: any;
 
-  constructor(private postsService: PostsService) {}
+  constructor(
+    private postsService: PostsService,
+    private firestore: FirestoreService
+  ) {}
 
   ngOnInit(): void {
-    this.emmitComments();
+    this.getComments();
   }
 
-  emmitComments() {
-    this.postsService.getPostComments(this.post).subscribe({
-      next: (comments) => {
-        this.comments = comments;
-      },
-      error: (err) => {
-        console.log(err);
-      },
+  getComments() {
+    // this.postsService.getPostComments(this.post).subscribe({
+    //   next: (comments) => {
+    //     this.comments = comments;
+    //   },
+    //   error: (err) => {
+    //     console.log(err);
+    //   },
+    // });
+    const path = 'Posts/' + this.post + '/Comments/';
+    this.firestore.getDoc(path, 'FbDix8M2yuAiM1l4ocD8').subscribe((res) => {
+      this.comments = res;
+      console.log(this.comments);
     });
   }
 
