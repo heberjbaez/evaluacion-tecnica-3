@@ -1,14 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {
-  FormBuilder,
-  FormControl,
-  FormGroup,
-  Validators,
-} from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
-import { Auth } from '../../interfaces/auth.interface';
-import { EmailValidatorService } from '../../services/email-validator.service';
 import { emailPattern } from 'src/app/posts/shared/validators/validations';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import Swal from 'sweetalert2';
@@ -27,7 +20,6 @@ export class LoginComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
-    private emailValidator: EmailValidatorService,
     private router: Router,
     private afAuth: AngularFireAuth
   ) {}

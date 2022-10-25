@@ -5,5 +5,5 @@ export interface Auth {
   password: string;
   uid: string;
   rol: 'user' | 'admin';
-  img: string;
+  img?: string;
 }

@@ -1,9 +1,5 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import {
-  AngularFirestore,
-  AngularFirestoreCollection,
-} from '@angular/fire/compat/firestore';
+
 import { Auth } from '../interfaces/auth.interface';
 import { Observable } from 'rxjs';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
@@ -19,8 +15,8 @@ import {
 })
 export class AuthService {
   constructor(
-    private firestore: Firestore,
-    private authFirebase: AngularFireAuth
+    private authFirebase: AngularFireAuth,
+    private firestore: Firestore
   ) {}
 
   addUser(user: Auth) {
